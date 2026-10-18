@@ -1,0 +1,4 @@
+time_window,checkpoint_seconds,apm,worker_count,buildings_constructed,total_telemetry_events
+t_3min,180,358.0,61,10,4585
+t_4min,240,358.75,90,16,6394
+t_5min,300,367.8,116,23,8336

@@ -1,0 +1,4 @@
+time_window,checkpoint_seconds,p1_apm,p1_workers,p1_buildings,delta_apm,delta_workers,delta_buildings
+t_3min,180,7.0,30,5,-628.33,-1,0
+t_4min,240,13.75,45,9,-602.5,0,2
+t_5min,300,11.0,56,12,-616.0,-4,1
