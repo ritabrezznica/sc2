@@ -1,0 +1,13 @@
+{
+  "model": "RandomForestClassifier",
+  "n_estimators": 200,
+  "random_state": 42,
+  "features": [
+    "p1_apm",
+    "p1_workers",
+    "p1_buildings",
+    "p1_army",
+    "p1_unspent"
+  ],
+  "rows": 1000
+}
