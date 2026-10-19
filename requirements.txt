@@ -1,9 +1,7 @@
-streamlit
+﻿streamlit
 pandas
 numpy
 joblib
 scikit-learn
-matplotlib
-shap
+plotly
 xgboost
-sc2-datasets

@@ -1,15 +1,51 @@
+﻿# Python and environments
 __pycache__/
+*.py[cod]
 .venv/
-*.pyc
-*.pyo
-*.pyd
+venv/
 .DS_Store
 .ipynb_checkpoints/
 
-# Local generated data
+# Raw and intermediate datasets
+/playerstats_raw.csv
+/playerstats_cleaned.csv
+/playerstats_deduplicated.csv
+/playerstats_conflicts.csv
+/playerstats_at_60s.csv
+/playerstats_at_60s_valid.csv
+/race_metadata_sample_1000.csv
+/sc2egset_merged_offsets.json
+
+# Replay archives and extracted replay data
+/sc2egset_merged/
+/sc2egset_merged.zip
+/replays_json/
+
+# Local data directories
 /data/downloads/
 /data/unpacked/
 /data/processed/
-/models/*.pkl
+
+# Generated experiment output
+/catboost_info/
+
+# Keep the dashboard's required model and paired dataset.
+# Ignore other local model artifacts unless explicitly added.
+
+# Experimental model artifacts
+*.pkl
+/models/*.joblib
+/models/*backup*
+/models/*retrain*
+
+# Local generated reports
 /reports/
-*.pkl 
+
+# Intermediate replay metadata and diagnostic outputs
+/replay_player_identity_metadata.csv
+/replay_player_identity_errors.csv
+/replay_race_map_metadata.csv
+/replay_race_map_errors.csv
+/replay_winner_labels.csv
+/winner_label_errors.csv
+/playerstats_conflicts.csv
