@@ -4,9 +4,7 @@ A machine-learning project that explores whether StarCraft II match outcomes can
 
 The project includes a Streamlit dashboard for exploring match statistics, comparing players, generating winner-probability estimates, and reviewing model evaluation results.
 
-> **Important:** Predictive performance is modest. The model is only slightly better than chance in the reported evaluations. Predictions are estimates, not guarantees.
-
-## Table of Contents
+> ## Table of Contents
 
 - [Project Overview](#project-overview)
 - [Research Objective](#research-objective)
