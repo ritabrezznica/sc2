@@ -36,7 +36,7 @@ The project also investigates whether model performance changes when evaluation 
 
 ## Dataset
 
-The current paired training dataset contains **23,423 matches** and **80 columns**.
+The current paired training dataset contains **23,423 matches** and **82 columns**.
 
 The dataset includes a replay index and paired player-level features. The precise feature definitions and target-label construction should be consulted in the project's data-processing and training scripts.
 
