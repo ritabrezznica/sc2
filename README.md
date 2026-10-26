@@ -88,17 +88,20 @@ Predictions should be interpreted as model estimates rather than certain outcome
 
 The main files required to launch the dashboard are:
 
-| File | Purpose |
+| Path | Purpose |
 |---|---|
 | `app.py` | Streamlit dashboard and application logic |
-| `requirements.txt` | Python package dependencies |
-| `sc2_paired_training.csv` | Paired-match dataset used by the application |
+| `requirements.txt` | Pinned Python package dependencies |
+| `sc2_paired_training.csv` | Paired-match dataset (82 columns, including race) used by the app |
 | `final_sc2_winner_model.joblib` | Saved machine-learning pipeline |
-| `models/` | Additional experimental model artifacts and metadata, where included |
-| `train_*.py` | Model training experiments |
-| `evaluate_*.py` and `validate_*.py` | Evaluation and validation scripts |
-| `extract_*.py` and `build_paired_training.py` | Data extraction and preparation scripts |
-| `*_comparison.csv` and validation result CSV files | Experiment outputs, where included |
+| `src/extract/` | Replay extraction, cleaning and dataset-building scripts |
+| `src/train/` | Model training experiments |
+| `src/evaluate/` | Evaluation and validation scripts (unseen maps and players, SHAP) |
+| `results/` | Experiment output CSVs (model comparisons, unseen-map and unseen-player results) |
+| `legacy/` | Earlier scripts for a different pipeline, kept for traceability |
+| `models/` | Additional model artifacts, where included |
+
+Run scripts from the repository root, for example `python src/train/train_final_model.py`, so relative file paths resolve. Scripts write their output files to the root; move them into `results/` if you want to keep them organised.
 
 Some diagnostic scripts and intermediate files are retained for research traceability. Not every script is required to run the dashboard.
 

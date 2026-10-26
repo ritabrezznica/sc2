@@ -293,30 +293,24 @@ elif page == "Match Prediction":
         st.error("Could not identify the input features expected by the saved model. Check that the correct trained pipeline is loaded.")
     else:
         input_values = {}
-        with st.form("prediction_form"):
-            left, right = st.columns(2)
-            for col, player_title, player_prefix, race_name in [
-                (left, "Player 1", "player1_", "player1_race"),
-                (right, "Player 2", "player2_", "player2_race"),
-            ]:
-                with col:
-                    st.markdown(f"### {player_title}")
-                    player_features = [f for f in numeric_features if f.startswith(player_prefix)]
-                    if race_name in feature_names:
-                        race_options = ["Unknown", "Terran", "Zerg", "Protoss", "Random"]
-                        existing = []
-                        if data is not None and race_name in data.columns:
-                            existing = [str(x) for x in data[race_name].dropna().unique()]
-                        race_options = list(dict.fromkeys(existing + race_options))
-                        input_values[race_name] = st.selectbox(f"{player_title} race", race_options, index=0, key=f"{race_name}_select")
-                    with st.expander(f"{player_title} statistics ({len(player_features)})", expanded=True):
-                        for feat in player_features:
-                            vals = sample_dropdown_values(data[feat]) if data is not None and feat in data.columns else [0.0]
-                            default = default_for_feature(feat, data)
-                            idx = min(range(len(vals)), key=lambda i: abs(vals[i] - default)) if vals else 0
-                            label = pretty_feature(feat)
-                            input_values[feat] = st.selectbox(label, options=vals, index=idx, format_func=lambda x: f"{x:,.3f}".rstrip("0").rstrip("."), key=f"pred_{feat}")
-            submitted = st.form_submit_button("Estimate match outcome", type="primary", use_container_width=True)
+        submitted = False
+        st.info("Reminder: on held-out data this model is only about one percentage point better than always guessing Player 1. Treat these estimates as exploratory.")
+        if data is None:
+            st.warning(data_error or "Load the dataset to choose a real match.")
+        else:
+            has_ids = "replay_index" in data.columns
+            replay_ids = data["replay_index"].tolist() if has_ids else list(range(len(data)))
+            with st.form("prediction_form"):
+                chosen = st.selectbox("Replay (a real early-game snapshot from the dataset)", replay_ids, key="pred_replay")
+                submitted = st.form_submit_button("Estimate match outcome", type="primary", use_container_width=True)
+            row_src = data[data["replay_index"] == chosen].iloc[0] if has_ids else data.iloc[int(chosen)]
+            for f in feature_names:
+                input_values[f] = row_src[f] if f in row_src.index else ("Unknown" if f in race_features else 0.0)
+            rc1, rc2 = st.columns(2)
+            rc1.caption(f"Player 1 race: {input_values.get('player1_race', 'n/a')}")
+            rc2.caption(f"Player 2 race: {input_values.get('player2_race', 'n/a')}")
+            if submitted and "player1_win" in row_src.index:
+                st.caption(f"Actual outcome in the data: {'Player 1 won' if int(row_src['player1_win']) == 1 else 'Player 2 won'}.")
 
         if submitted:
             row = pd.DataFrame([{f: input_values.get(f, "Unknown" if f in race_features else 0.0) for f in feature_names}])
